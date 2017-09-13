@@ -16,5 +16,8 @@
 		"PUSHBULLET_API_KEY": {
 			"description": "Your Pushbullet API key for notifications"
 		}
-	}
+	},
+	"addons": [
+		"scheduler"
+	]
 }
