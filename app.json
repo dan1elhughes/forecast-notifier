@@ -1,0 +1,6 @@
+{
+	"name": "Forecast Notifier",
+	"description": "Daily notifications for Harvest Forecast projects",
+	"repository": "https://github.com/dan1elhughes/forecast-notifier",
+	"logo": "https://raw.githubusercontent.com/dan1elhughes/forecast-notifier/master/static/icon.png"
+}
