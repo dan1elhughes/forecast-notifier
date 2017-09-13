@@ -2,5 +2,19 @@
 	"name": "Forecast Notifier",
 	"description": "Daily notifications for Harvest Forecast projects",
 	"repository": "https://github.com/dan1elhughes/forecast-notifier",
-	"logo": "https://raw.githubusercontent.com/dan1elhughes/forecast-notifier/master/static/icon.png"
+	"logo": "https://raw.githubusercontent.com/dan1elhughes/forecast-notifier/master/static/icon.png",
+	"env": {
+		"FORECAST_ACCOUNT_ID": {
+			"description": "Forecast account ID"
+		},
+		"FORECAST_AUTHORIZATION": {
+			"description": "Authorization header from the request headers in Forecast"
+		},
+		"EMAIL": {
+			"description": "Your email address within Forecast"
+		},
+		"PUSHBULLET_API_KEY": {
+			"description": "Your Pushbullet API key for notifications"
+		}
+	}
 }
