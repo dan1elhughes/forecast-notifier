@@ -1,15 +1,25 @@
 let cache = {};
 
-module.exports = forecast => (api, options) => new Promise(resolve => {
+module.exports = forecast => api => {
+
+	let fetch = forecast._request.bind(forecast);
+
 	if (!cache[api]) {
-		let callback;
-		if (options) {
-			callback = resolve => (forecast[api](options, (err, value) => resolve(value)));
-		} else {
-			callback = resolve => (forecast[api]((err, value) => resolve(value)));
-		}
-		cache[api] = new Promise(callback);
+
+		cache[api] = new Promise((resolve, reject) => {
+			fetch(`/${api}`, (err, value) => {
+				if (err == null) {
+					if (value.reason) {
+						return reject(value);
+					} else {
+						return resolve(value);
+					}
+				} else {
+					return reject([err, value]);
+				}
+			});
+		});
 	}
 
-	return resolve(cache[api]);
-});
+	return cache[api];
+};
