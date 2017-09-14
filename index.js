@@ -4,6 +4,8 @@ const assert = require('assert');
 const Forecast = require('forecast-api');
 const api = require('./api');
 const pipe = require('./pipe');
+const map = fn => arr => arr.map(fn);
+const filter = predicate => arr => arr.filter(predicate);
 require('dotenv').config();
 
 // Load environment variables
