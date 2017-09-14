@@ -25,38 +25,35 @@ let output = apiKey ? require('./pushbullet')(apiKey.trim()) : console.log.bind(
 const forecast = new Forecast({ accountId, authorization });
 const load = api(forecast);
 
-// Converts an email address to an internal ID
-const getIDFromEmail = email => new Promise(resolve => {
-
-	console.log(`Finding ID of user ${email}...`);
-
-	load('people').then(people => {
-		const { id } = people.find(_ => _.email === email);
-		console.log(`Found ID: ${id}`);
-		return resolve(id);
+const getID = () => {
+	console.log('Finding ID from API token...');
+	return load('whoami').then(({ current_user }) => {
+		let { id } = current_user;
+		console.log(`Found ID ${id}`);
+		return id;
 	});
-});
+};
 
 // Converts a user ID to a list of assignments
-const getAssignmentsForID = options => id => new Promise(resolve => {
+const getAssignmentsForID = id => {
 
 	console.log(`Finding assignments for user ${id}...`);
 
-	load('assignments', options).then(assignments => {
+	return load('assignments').then(({ assignments }) => {
 		console.log('Filtering list of assignments...');
 
 		const myAssignments = assignments.filter(_ => _.person_id === id);
 
 		console.log(`Got assignments: ${myAssignments.map(_ => _.id).join(', ')}`);
 
-		return resolve(myAssignments);
+		return myAssignments;
 	});
-});
+};
 
 // Appends a name field and tags field to an assignment
-const addProjectNameToAssignment = assignment => new Promise(resolve => {
+const addProjectNameToAssignment = assignment => {
 	console.log(`Finding name of project ${assignment.project_id}...`);
-	load('projects').then(projects => {
+	return load('projects').then(({ projects }) => {
 
 		const project = projects.find(_ => _.id === assignment.project_id);
 
@@ -65,9 +62,9 @@ const addProjectNameToAssignment = assignment => new Promise(resolve => {
 
 		console.log(`Found name ${assignment.name}`);
 
-		return resolve(assignment);
+		return assignment;
 	});
-});
+};
 
 // Iterates the above function and wraps in a Promise collection
 const addNamesToAssignments = ids => Promise.all(ids.map(addProjectNameToAssignment));
@@ -82,25 +79,24 @@ const convertToReadableFormat = assignments => assignments.map(_ => ({
 	name: _.name,
 	start: _.start_date,
 	end: _.end_date,
-	tags: _.tags.join(', '),
+	tags: _.tags,
 }));
 
-// Configures the date range to be queried
-const startDate = new Date();
-const rangeInDays = 0;
-let endDate = new Date();
-endDate.setDate(endDate.getDate() + rangeInDays);
-let options = { startDate, endDate };
+const reverse = arr => arr.reverse();
 
 // All ready, let's go!
 const app = pipe([
-	getIDFromEmail,
-	getAssignmentsForID(options),
+	getID,
+	getAssignmentsForID,
 	map(addDatesToAssignment),
 	filter(dateRangeCovers(new Date())),
 	addNamesToAssignments,
 	convertToReadableFormat,
+	reverse,
 	output,
 ]);
 
-app(email);
+app().catch(err => {
+	console.log(err);
+	process.exit(1);
+});
