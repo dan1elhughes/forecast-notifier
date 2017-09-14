@@ -69,6 +69,12 @@ const addProjectNameToAssignment = assignment => new Promise(resolve => {
 // Iterates the above function and wraps in a Promise collection
 const addNamesToAssignments = ids => Promise.all(ids.map(addProjectNameToAssignment));
 
+const addDatesToAssignment = assignment => {
+	assignment.start = new Date(Date.parse(assignment.start_date));
+	assignment.end = new Date(Date.parse(assignment.end_date));
+	return assignment;
+};
+
 const convertToReadableFormat = assignments => assignments.map(_ => ({
 	name: _.name,
 	start: _.start_date,
@@ -87,6 +93,7 @@ let options = { startDate, endDate };
 const app = pipe([
 	getIDFromEmail,
 	getAssignmentsForID(options),
+	map(addDatesToAssignment),
 	addNamesToAssignments,
 	convertToReadableFormat,
 	output,
