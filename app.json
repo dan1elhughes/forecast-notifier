@@ -14,7 +14,8 @@
 			"description": "Your email address within Forecast"
 		},
 		"PUSHBULLET_API_KEY": {
-			"description": "Your Pushbullet API key for notifications"
+			"description": "Your Pushbullet API key for notifications",
+			"required": false
 		}
 	},
 	"addons": [
