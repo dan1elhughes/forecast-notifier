@@ -4,8 +4,11 @@ const assert = require('assert');
 const Forecast = require('forecast-api');
 const api = require('./api');
 const pipe = require('./pipe');
+const dateRangeCovers = require('./dateRangeCovers');
+
 const map = fn => arr => arr.map(fn);
 const filter = predicate => arr => arr.filter(predicate);
+
 require('dotenv').config();
 
 // Load environment variables
@@ -94,6 +97,7 @@ const app = pipe([
 	getIDFromEmail,
 	getAssignmentsForID(options),
 	map(addDatesToAssignment),
+	filter(dateRangeCovers(new Date())),
 	addNamesToAssignments,
 	convertToReadableFormat,
 	output,
