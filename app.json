@@ -17,6 +17,10 @@
 		"TELEGRAM_CONFIG": {
 			"description": "Telegram token and chat ID, in the format \"chatID|token\"",
 			"required": false
+		},
+		"TZ": {
+			"description": "Timezone in TZ database format",
+			"value": "Europe/London"
 		}
 	},
 	"addons": [
