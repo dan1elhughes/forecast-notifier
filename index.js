@@ -3,6 +3,7 @@
 const assert = require('assert');
 const Forecast = require('forecast-api');
 const api = require('./api');
+const format = require('./formatter');
 const pipe = require('./pipe');
 const dateRangeCovers = require('./dateRangeCovers');
 
@@ -93,6 +94,7 @@ const app = pipe([
 	addNamesToAssignments,
 	convertToReadableFormat,
 	reverse,
+	format,
 	output,
 ]);
 
