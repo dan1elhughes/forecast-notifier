@@ -11,7 +11,11 @@
 			"description": "Authorization header from the request headers in Forecast"
 		},
 		"PUSHBULLET_API_KEY": {
-			"description": "Your Pushbullet API key for notifications",
+			"description": "Pushbullet API key for notifications",
+			"required": false
+		},
+		"TELEGRAM_CONFIG": {
+			"description": "Telegram token and chat ID, in the format \"chatID|token\"",
 			"required": false
 		}
 	},
