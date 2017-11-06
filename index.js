@@ -111,6 +111,10 @@ const app = pipe([
 app()
 	.then(msg => console.log(msg))
 	.catch(err => {
-		console.log(err);
-		process.exit(1);
+		console.error(err);
+
+		const title = 'Forecast API error';
+		const body = JSON.stringify(err);
+
+		output({ title, body }).then(() => process.exit(1));
 	});
