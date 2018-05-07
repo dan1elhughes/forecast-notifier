@@ -2,28 +2,23 @@
 	"name": "Forecast Notifier",
 	"description": "Daily notifications for Harvest Forecast projects",
 	"repository": "https://github.com/dan1elhughes/forecast-notifier",
-	"logo": "https://raw.githubusercontent.com/dan1elhughes/forecast-notifier/master/static/icon.png",
+	"logo":
+		"https://raw.githubusercontent.com/dan1elhughes/forecast-notifier/master/static/icon.png",
 	"env": {
 		"FORECAST_ACCOUNT_ID": {
 			"description": "Forecast account ID"
 		},
-		"FORECAST_AUTHORIZATION": {
-			"description": "Authorization header from the request headers in Forecast"
-		},
-		"PUSHBULLET_API_KEY": {
-			"description": "Pushbullet API key for notifications",
-			"required": false
+		"FORECAST_TOKEN": {
+			"description": "Forecast token"
 		},
 		"TELEGRAM_CONFIG": {
-			"description": "Telegram token and chat ID, in the format \"chatID|token\"",
-			"required": false
+			"description":
+				"Telegram token and chat ID, in the format \"chatID|token\""
 		},
 		"TZ": {
 			"description": "Timezone in TZ database format",
 			"value": "Europe/London"
 		}
 	},
-	"addons": [
-		"scheduler"
-	]
+	"addons": ["scheduler"]
 }
