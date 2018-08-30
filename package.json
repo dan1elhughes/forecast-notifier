@@ -11,15 +11,15 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "dateformat": "^2.0.0",
-    "dotenv": "^4.0.0",
-    "forecast-promise": "^1.1.0",
-    "request": "^2.81.0"
+    "dateformat": "^3.0.3",
+    "dotenv": "^6.0.0",
+    "forecast-promise": "^1.2.0",
+    "request": "^2.88.0"
   },
   "devDependencies": {
-    "eslint": "^4.19.1",
-    "eslint-config-prettier": "^2.9.0",
-    "eslint-plugin-prettier": "^2.6.0",
-    "prettier": "^1.12.1"
+    "eslint": "^5.4.0",
+    "eslint-config-prettier": "^3.0.1",
+    "eslint-plugin-prettier": "^2.6.2",
+    "prettier": "^1.14.2"
   }
 }
